@@ -1,0 +1,20 @@
+n, s = map(int, input().split())
+arr = list(map(int, input().split()))
+ 
+def longest_good_segment(n, s, arr):
+    left = 0
+    curr_sum = 0
+    max_len = 0
+ 
+    for right in range(n):
+        curr_sum += arr[right]
+ 
+        while curr_sum > s:
+            curr_sum -= arr[left]
+            left += 1
+ 
+        max_len = max(max_len, right - left + 1)
+ 
+    return max_len
+ 
+print(longest_good_segment(n, s, arr))
