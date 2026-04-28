@@ -1,0 +1,27 @@
+class Solution:
+    def shipWithinDays(self, weights: List[int], days: int) -> int:
+        def canShip(capacity):
+            addWeight = 0
+            canShipdays = 1
+            for w in weights:
+                if w + addWeight <= capacity:
+                    addWeight += w
+                else:
+                    canShipdays += 1     
+                    addWeight = w
+            return canShipdays <= days
+
+
+        low = max(weights)
+        high = sum(weights)
+        result = high
+
+        while low <= high:
+            mid = (low + high) // 2
+
+            if canShip(mid):
+                result = mid
+                high = mid - 1
+            else:
+                low = mid + 1
+        return result 
