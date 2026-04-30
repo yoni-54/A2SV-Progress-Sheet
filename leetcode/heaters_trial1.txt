@@ -1,0 +1,21 @@
+class Solution:
+    def findRadius(self, houses: List[int], heaters: List[int]) -> int:
+        houses.sort()
+        heaters.sort()
+    
+        radius = 0
+    
+        for house in houses:
+            pos = bisect.bisect_left(heaters, house)
+        
+            left_dist = float('inf')
+            right_dist = float('inf')
+        
+            if pos > 0:
+                left_dist = abs(house - heaters[pos - 1])
+            if pos < len(heaters):
+                right_dist = abs(house - heaters[pos]) if pos < len(heaters) else float('inf')
+        
+            radius = max(radius, min(left_dist, right_dist))
+    
+        return radius
